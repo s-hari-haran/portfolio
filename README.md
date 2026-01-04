@@ -1,131 +1,125 @@
-# 👋 Hi, I'm Hari Haran (aka realhariharan)
+# Hi, I'm Hari Haran S 👋
 
 **Portfolio:** [realhariharan.live](https://realhariharan.live)
 
-I'm a Computer Science Engineering (AI/ML) student who's obsessed with systems, infrastructure, and how power actually flows in the real world — not just apps and buzzwords.
-
-**I don't just build features.**  
-I build models of reality: supply chains, risk systems, automation pipelines, and AI tools that sit between software, policy, and physical infrastructure.
+I'm a **4th-year Computer Science Engineering (AI/ML)** student with strong experience in **applied machine learning, backend systems, and full-stack development**. I focus on building **scalable, real-world AI systems** and **data-driven products** rather than experimental or toy projects.
 
 ---
 
-## 🔥 What I'm focused on
+## 🔍 About Me
 
-- Critical materials & supply-chain risk
-- Energy, infrastructure, and geopolitics
-- AI systems that explain, not hallucinate
-- Automation over dashboards
-- Building things that decision-makers actually use
-
-I care more about **clarity than hype** and more about **leverage than vanity metrics**.
+- AI/ML-focused engineer with hands-on experience in **OCR, NLP, CNNs, semantic search, and algorithmic systems**
+- Interested in **production-oriented AI**, automation, and backend-aligned system design
+- Comfortable working across **ML pipelines, APIs, databases, and frontend integration**
+- Strong inclination toward **problem-solving, system thinking, and execution**
 
 ---
 
-## 🧠 Core Skills
+## 💼 Experience
 
-### Programming & Software
-- **Python** – data pipelines, automation, ML, scraping
-- **JavaScript / TypeScript**
-- **SQL** – Postgres, SQLite
-- **Git** – real usage, not just commits
-- **Docker** – containerized services
+### Operations Intern — Airlearn (Unacademy)
+**Bangalore, India | Aug 2025**
 
-### AI / ML
-- Generative AI (LLMs)
-- Prompt engineering (for real workflows, not demos)
-- Retrieval-Augmented Generation (RAG)
-- NLP pipelines
-- Model evaluation & explainability
-- Whisper / speech-to-text workflows
-
-> I'm not chasing "AGI".  
-> I'm building useful AI that plugs into systems.
-
-### Data & Systems
-- Data scraping & ingestion (Firecrawl, custom pipelines)
-- ETL pipelines
-- Risk scoring models
-- Rule-based + AI-assisted decision systems
-- Graph thinking (dependencies, choke points, cascades)
-
-### Cloud & Infrastructure
-- Google Cloud Platform (Vertex AI, storage, notebooks)
-- AWS
-- Firebase / Firestore
-- Supabase
-- CI/CD basics
-- Linux-first mindset
-
-### Frontend (when needed, not for fun)
-- React.js
-- Next.js
-- Tailwind CSS
-- Streamlit
-- Neobrutalist, analyst-style UI (clarity > aesthetics)
+- Translated **Figma design specifications** into backend-aligned system logic
+- Identified repetitive operational workflows and proposed **automation improvements**
+- Collaborated with cross-functional teams to improve **execution efficiency**
 
 ---
 
-## 🚀 Featured Project
+## 🚀 Projects
 
 ### [Chokepoint](https://realhariharan.live/projects/chokepoint)
-**Critical Materials Risk Intelligence Dashboard**
+**Critical Materials Risk Dashboard**  
+*React, TypeScript, Supabase, Tailwind, Firecrawl*  
+**Jan 2026**
 
-A neobrutalist, analyst-focused dashboard that maps structural supply-chain risk across critical metals like gallium, neodymium, lithium, cobalt, silicon, etc.
-
-#### What it does
-- Tracks supply concentration by country
-- Maps industry dependency (semiconductors, EVs, defense, renewables)
-- Flags choke points like export controls and refining dominance
-- Computes explainable risk scores on-read
-- Uses Firecrawl only for signals (policy + supply events), not noisy scraping
-
-#### Why it exists
-Most people don't know what breaks first when supply chains snap.  
-This tool answers that clearly, without price charts or hype.
-
-#### Tech stack
-- React + Tailwind + shadcn/ui
-- Supabase (Postgres + Edge Functions)
-- Firecrawl
-- SQL-computed risk logic
+Track supply chain vulnerabilities for strategic materials like lithium, cobalt, and rare earths. Computes explainable risk scores, maps industry dependencies, and flags geopolitical choke points.
 
 ---
 
-## 🧩 Other Interests
+### [DeedLens](https://github.com/s-hari-haran/deedlens)
+**AI-Powered Property Document Intelligence Platform**  
+*Python, OCR, NLP, FAISS*  
+**Nov 2025 – Jan 2026**
 
-- Global infrastructure & energy systems
-- Semiconductors & hardware supply chains
-- Rare earths & critical minerals
-- Financial systems & market structure
-- Psychology and decision-making
-- Building things from scratch (software + physical systems)
-
----
-
-## 🧠 How I think
-
-| Principle | Over |
-|-----------|------|
-| Systems | Tools |
-| Structure | Prediction |
-| Clarity | Complexity |
-| Leverage | Effort |
-
-I'm more interested in **why things fail** than why they work.
+- Built an end-to-end **OCR + NER pipeline** to structure unorganized Indian property deeds
+- Implemented **semantic search** using vector embeddings for contextual legal queries
+- Extracted entities: buyers, sellers, witnesses, property details, survey numbers, financial values, and legal dates
 
 ---
 
-## 📍 What I'm looking for
+### [GoPred](https://github.com/s-hari-haran/GoPred)
+**Stock Prediction & Portfolio Optimization System**  
+*Python, Prophet, SciPy, yfinance, Streamlit*  
+**2025**
 
-✅ Research roles  
-✅ Infra / climate / policy-adjacent startups  
-✅ AI systems roles  
-✅ Environments where people care about second-order effects
+- Built a time-series forecasting system using Facebook's Prophet to predict next-day stock prices
+- Implemented Markowitz mean-variance optimization for optimal portfolio weights
+- Developed an interactive Streamlit dashboard with neobrutalist UI
 
-❌ Not interested in:
-- Copy-paste SaaS
-- Meaningless dashboards
-- "AI" slapped on CRUD apps
+---
+
+### [FreshTrack](https://github.com/s-hari-haran/food-expiry-tracker)
+**Food Freshness Detection**  
+*Python, TensorFlow, Flask*  
+**Dec 2024 – Feb 2025**
+
+- Developed **CNN-based image classification** for food freshness detection
+- Integrated **OCR + LLM-based reasoning** to extract expiry information from labels
+- Designed **real-time webcam inference** with modular backend pipelines
+
+---
+
+### [Binance Futures Trading Bot](https://github.com/s-hari-haran/Hari_Haran_S_binance_bot)
+**Algorithmic Trading & Strategy Engine**  
+*Python, Binance API*  
+**Oct – Nov 2025**
+
+- Designed a **modular, class-based trading engine** for Binance USDT-M Futures
+- Implemented market/limit orders, position sizing, risk controls, and structured logging
+- Built **backtesting support** using historical market data
+
+---
+
+## 🧠 Technical Skills
+
+### Programming
+- Python, C, Java, TypeScript
+
+### AI / Machine Learning
+- Generative AI, LLMs, Prompt Engineering, RAG
+- TensorFlow, Scikit-learn, NLP, CNNs
+- OCR, Semantic Search
+
+### Cloud & Databases
+- AWS, Google Cloud Platform, Azure
+- Firebase, Firestore, Supabase
+
+### Frameworks & Tools
+- React.js, Flask, Node.js
+- Git, Docker, Postman
+- Data Pipelines, ETL Workflows
+
+---
+
+## 🏆 Achievements
+
+| Award | Event | Year |
+|-------|-------|------|
+| 🥇 Winner | ThinkUp Ideathon | 2025 |
+| 🥈 2nd Place | Algo Arena Hackathon | 2025 |
+| 🥉 3rd Place | TerraQuest, Omnitricks, Hackfusion @ MIT Mysore | 2025 |
+| 🏅 Finalist | India's First Replit Hackathon | 2025 |
+
+---
+
+## 🎓 Education
+
+**AMC Engineering College**  
+Bangalore, India | 2022 – 2026
+
+- **B.E. Computer Science Engineering (AI/ML)**
+- **CGPA: 8.23**
 
 ---
 
@@ -134,7 +128,8 @@ I'm more interested in **why things fail** than why they work.
 - **Portfolio:** [realhariharan.live](https://realhariharan.live)
 - **GitHub:** [github.com/s-hari-haran](https://github.com/s-hari-haran)
 - **LinkedIn:** [linkedin.com/in/real-hari-haran](https://linkedin.com/in/real-hari-haran)
-- **Email:** [realhariaharan@gmail.com](mailto:realhariaharan@gmail.com)
+- **Email:** [realhariharan@gmail.com](mailto:realhariharan@gmail.com)
+- **Resume:** [Download PDF](https://drive.google.com/file/d/1_MCKgDVHLPs_FwoE09J2n5FRfljqsb1d/view?usp=sharing)
 
 ---
 
