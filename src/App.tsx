@@ -1,30 +1,41 @@
 import { useState, useEffect } from 'react'
 import { Github, Linkedin, Mail, ArrowRight, Download, Briefcase, GraduationCap, Trophy, Code, Brain, Cloud, Wrench } from 'lucide-react'
 import './index.css'
+import profileImage from './assets/profile.jpeg'
 
-function useTypewriter(text: string, speed: number = 100) {
+function useTypewriter(text: string, typeSpeed: number = 100, eraseSpeed: number = 50, pauseTime: number = 2000) {
   const [displayText, setDisplayText] = useState('')
-  const [isComplete, setIsComplete] = useState(false)
+  const [isTyping, setIsTyping] = useState(true)
 
   useEffect(() => {
-    let index = 0
-    setDisplayText('')
-    setIsComplete(false)
+    let timeout: ReturnType<typeof setTimeout>
 
-    const timer = setInterval(() => {
-      if (index < text.length) {
-        setDisplayText(text.slice(0, index + 1))
-        index++
+    if (isTyping) {
+      if (displayText.length < text.length) {
+        timeout = setTimeout(() => {
+          setDisplayText(text.slice(0, displayText.length + 1))
+        }, typeSpeed)
       } else {
-        setIsComplete(true)
-        clearInterval(timer)
+        timeout = setTimeout(() => {
+          setIsTyping(false)
+        }, pauseTime)
       }
-    }, speed)
+    } else {
+      if (displayText.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayText(displayText.slice(0, -1))
+        }, eraseSpeed)
+      } else {
+        timeout = setTimeout(() => {
+          setIsTyping(true)
+        }, 500)
+      }
+    }
 
-    return () => clearInterval(timer)
-  }, [text, speed])
+    return () => clearTimeout(timeout)
+  }, [displayText, isTyping, text, typeSpeed, eraseSpeed, pauseTime])
 
-  return { displayText, isComplete }
+  return { displayText, isTyping }
 }
 
 interface Project {
@@ -191,37 +202,50 @@ function SkillCard({ skill }: { skill: Skill }) {
 }
 
 function App() {
-  const { displayText, isComplete } = useTypewriter('Hari Haran S', 120)
+  const { displayText } = useTypewriter('Hari Haran S', 120, 60, 2000)
 
   return (
     <div className="min-h-screen bg-stone-50">
       <main className="mx-auto max-w-3xl px-6 py-20">
         {/* Hero Section */}
         <section className="mb-20">
-          <h1 className="text-5xl font-bold tracking-tight md:text-6xl">
-            Hi, I'm{' '}
-            <span className="underline decoration-4 underline-offset-8 decoration-black">
-              {displayText}
-              <span className={`typewriter-cursor ${isComplete ? 'blink' : ''}`}>|</span>
-            </span>
-          </h1>
-          <p className="mt-6 text-lg text-gray-600 leading-relaxed">
-            <strong>4th-year Computer Science Engineering (AI/ML)</strong> student with strong experience in applied machine learning, backend systems, and full-stack development.
-          </p>
-          <p className="mt-4 text-lg text-gray-500 leading-relaxed">
-            I focus on building <strong>scalable, real-world AI systems</strong> and <strong>data-driven products</strong> rather than experimental or toy projects.
-          </p>
-          
-          {/* Resume Button */}
-          <a
-            href="https://drive.google.com/file/d/1_MCKgDVHLPs_FwoE09J2n5FRfljqsb1d/view?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 border-4 border-black bg-black text-white px-6 py-3 font-bold shadow-brutal transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm"
-          >
-            <Download className="h-5 w-5" />
-            Download Resume
-          </a>
+          <div className="flex flex-col-reverse gap-8 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex-1">
+              <h1 className="text-5xl font-bold tracking-tight md:text-6xl">
+                Hi, I'm{' '}
+                <span className="underline decoration-4 underline-offset-8 decoration-black">
+                  {displayText}
+                  <span className="typewriter-cursor blink">|</span>
+                </span>
+              </h1>
+              <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+                <strong>4th-year Computer Science Engineering (AI/ML)</strong> student with strong experience in applied machine learning, backend systems, and full-stack development.
+              </p>
+              <p className="mt-4 text-lg text-gray-500 leading-relaxed">
+                I focus on building <strong>scalable, real-world AI systems</strong> and <strong>data-driven products</strong> rather than experimental or toy projects.
+              </p>
+              
+              {/* Resume Button */}
+              <a
+                href="https://drive.google.com/file/d/1_MCKgDVHLPs_FwoE09J2n5FRfljqsb1d/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-6 border-4 border-black bg-black text-white px-6 py-3 font-bold shadow-brutal transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm"
+              >
+                <Download className="h-5 w-5" />
+                Download Resume
+              </a>
+            </div>
+            
+            {/* Profile Picture */}
+            <div className="flex-shrink-0">
+              <img
+                src={profileImage}
+                alt="Hari Haran S"
+                className="profile-image"
+              />
+            </div>
+          </div>
         </section>
 
         {/* About Section */}
@@ -331,6 +355,34 @@ function App() {
                   CGPA: <strong>8.23</strong>
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact/CTA Section */}
+        <section className="mb-20">
+          <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-gray-500">
+            Let's Connect
+          </h2>
+          <div className="border-4 border-black bg-white p-8 shadow-brutal">
+            <div className="text-center">
+              <div className="inline-block border-2 border-black bg-black text-white px-4 py-1 mb-4 font-mono text-sm">
+                🟢 Open to Opportunities
+              </div>
+              <h3 className="text-2xl font-bold mb-4">
+                Looking for AI/ML & Backend Roles
+              </h3>
+              <p className="text-gray-500 mb-6 max-w-lg mx-auto">
+                I'm actively seeking roles in applied AI, ML engineering, and backend systems. 
+                If you're building something interesting, let's talk.
+              </p>
+              <a
+                href="mailto:realhariharan@gmail.com"
+                className="inline-flex items-center gap-2 border-4 border-black bg-black text-white px-6 py-3 font-bold shadow-brutal transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm"
+              >
+                <Mail className="h-5 w-5" />
+                realhariharan@gmail.com
+              </a>
             </div>
           </div>
         </section>
