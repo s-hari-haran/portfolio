@@ -1,5 +1,31 @@
+import { useState, useEffect } from 'react'
 import { Github, Linkedin, Mail, ArrowRight, Download, Briefcase, GraduationCap, Trophy, Code, Brain, Cloud, Wrench } from 'lucide-react'
 import './index.css'
+
+function useTypewriter(text: string, speed: number = 100) {
+  const [displayText, setDisplayText] = useState('')
+  const [isComplete, setIsComplete] = useState(false)
+
+  useEffect(() => {
+    let index = 0
+    setDisplayText('')
+    setIsComplete(false)
+
+    const timer = setInterval(() => {
+      if (index < text.length) {
+        setDisplayText(text.slice(0, index + 1))
+        index++
+      } else {
+        setIsComplete(true)
+        clearInterval(timer)
+      }
+    }, speed)
+
+    return () => clearInterval(timer)
+  }, [text, speed])
+
+  return { displayText, isComplete }
+}
 
 interface Project {
   title: string
@@ -165,6 +191,8 @@ function SkillCard({ skill }: { skill: Skill }) {
 }
 
 function App() {
+  const { displayText, isComplete } = useTypewriter('Hari Haran S', 120)
+
   return (
     <div className="min-h-screen bg-stone-50">
       <main className="mx-auto max-w-3xl px-6 py-20">
@@ -173,7 +201,8 @@ function App() {
           <h1 className="text-5xl font-bold tracking-tight md:text-6xl">
             Hi, I'm{' '}
             <span className="underline decoration-4 underline-offset-8 decoration-black">
-              Hari Haran S
+              {displayText}
+              <span className={`typewriter-cursor ${isComplete ? 'blink' : ''}`}>|</span>
             </span>
           </h1>
           <p className="mt-6 text-lg text-gray-600 leading-relaxed">
@@ -201,21 +230,17 @@ function App() {
             About Me
           </h2>
           <div className="border-4 border-black bg-white p-6 shadow-brutal">
-            <ul className="space-y-3 text-gray-600">
-              <li className="flex items-start gap-2">
-                <span className="font-bold text-black">•</span>
+            <ul className="about-list">
+              <li>
                 AI/ML-focused engineer with hands-on experience in <strong>OCR, NLP, CNNs, semantic search, and algorithmic systems</strong>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="font-bold text-black">•</span>
+              <li>
                 Interested in <strong>production-oriented AI</strong>, automation, and backend-aligned system design
               </li>
-              <li className="flex items-start gap-2">
-                <span className="font-bold text-black">•</span>
+              <li>
                 Comfortable working across <strong>ML pipelines, APIs, databases, and frontend integration</strong>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="font-bold text-black">•</span>
+              <li>
                 Strong inclination toward <strong>problem-solving, system thinking, and execution</strong>
               </li>
             </ul>
