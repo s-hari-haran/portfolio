@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, ArrowRight, Cpu, Database, Cloud, Code, Brain, Zap } from 'lucide-react'
+import { Github, Linkedin, Mail, ArrowRight, Download, Briefcase, GraduationCap, Trophy, Code, Brain, Cloud, Wrench } from 'lucide-react'
 import './index.css'
 
 interface Project {
@@ -6,13 +6,20 @@ interface Project {
   description: string
   tags: string[]
   href: string
+  date: string
   isExternal?: boolean
 }
 
 interface Skill {
-  icon: typeof Cpu
+  icon: typeof Code
   title: string
   items: string[]
+}
+
+interface Achievement {
+  title: string
+  event: string
+  year: string
 }
 
 const projects: Project[] = [
@@ -21,6 +28,39 @@ const projects: Project[] = [
     description: 'Critical Materials Risk Dashboard — Track supply chain vulnerabilities for strategic materials like lithium, cobalt, and rare earths. Computes explainable risk scores, maps industry dependencies, and flags geopolitical choke points.',
     tags: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Firecrawl'],
     href: '/projects/chokepoint',
+    date: 'Jan 2026',
+  },
+  {
+    title: 'DeedLens',
+    description: 'AI-Powered Property Document Intelligence Platform. Built an end-to-end OCR + NER pipeline to structure unorganized Indian property deeds. Implemented semantic search using vector embeddings for contextual legal queries.',
+    tags: ['Python', 'OCR', 'NLP', 'FAISS'],
+    href: 'https://github.com/s-hari-haran/deedlens',
+    date: 'Nov 2025 – Jan 2026',
+    isExternal: true,
+  },
+  {
+    title: 'GoPred',
+    description: 'Stock Prediction & Portfolio Optimization System. Time-series forecasting using Prophet to predict next-day stock prices. Implemented Markowitz mean-variance optimization with interactive Streamlit dashboard.',
+    tags: ['Python', 'Prophet', 'SciPy', 'Streamlit'],
+    href: 'https://github.com/s-hari-haran/GoPred',
+    date: '2025',
+    isExternal: true,
+  },
+  {
+    title: 'FreshTrack',
+    description: 'Food Freshness Detection system using CNN-based image classification. Integrated OCR + LLM-based reasoning to extract expiry information from labels with real-time webcam inference.',
+    tags: ['Python', 'TensorFlow', 'Flask', 'OCR'],
+    href: 'https://github.com/s-hari-haran/food-expiry-tracker',
+    date: 'Dec 2024 – Feb 2025',
+    isExternal: true,
+  },
+  {
+    title: 'Binance Futures Trading Bot',
+    description: 'Algorithmic Trading & Strategy Engine. Modular, class-based trading engine for Binance USDT-M Futures with market/limit orders, position sizing, risk controls, and backtesting support.',
+    tags: ['Python', 'Binance API', 'Algorithmic Trading'],
+    href: 'https://github.com/s-hari-haran/Hari_Haran_S_binance_bot',
+    date: 'Oct – Nov 2025',
+    isExternal: true,
   },
 ]
 
@@ -28,32 +68,30 @@ const skills: Skill[] = [
   {
     icon: Code,
     title: 'Programming',
-    items: ['Python', 'TypeScript', 'SQL', 'Git', 'Docker'],
+    items: ['Python', 'C', 'Java', 'TypeScript'],
   },
   {
     icon: Brain,
     title: 'AI / ML',
-    items: ['LLMs', 'RAG', 'NLP', 'Prompt Engineering', 'Whisper'],
-  },
-  {
-    icon: Database,
-    title: 'Data & Systems',
-    items: ['ETL Pipelines', 'Risk Models', 'Graph Thinking', 'Scraping'],
+    items: ['LLMs', 'RAG', 'TensorFlow', 'Scikit-learn', 'NLP', 'CNNs'],
   },
   {
     icon: Cloud,
-    title: 'Infrastructure',
-    items: ['GCP', 'AWS', 'Supabase', 'Firebase', 'Linux'],
+    title: 'Cloud & Databases',
+    items: ['AWS', 'GCP', 'Azure', 'Firebase', 'Firestore'],
+  },
+  {
+    icon: Wrench,
+    title: 'Frameworks & Tools',
+    items: ['React', 'Flask', 'Node.js', 'Git', 'Docker', 'Postman'],
   },
 ]
 
-const interests = [
-  'Supply Chain Intelligence',
-  'Critical Materials',
-  'Semiconductors',
-  'Energy Systems',
-  'Geopolitics',
-  'Market Structure',
+const achievements: Achievement[] = [
+  { title: 'Winner', event: 'ThinkUp Ideathon', year: '2025' },
+  { title: '2nd Place', event: 'Algo Arena Hackathon', year: '2025' },
+  { title: '3rd Place', event: 'TerraQuest, Omnitricks, Hackfusion @ MIT Mysore', year: '2025' },
+  { title: 'Finalist', event: "India's First Replit Hackathon", year: '2025' },
 ]
 
 const socialLinks = [
@@ -83,7 +121,10 @@ function ProjectCard({ project }: { project: Project }) {
       className="group block border-4 border-black bg-white p-6 shadow-brutal transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm"
     >
       <div className="flex items-start justify-between">
-        <h3 className="text-xl font-bold">{project.title}</h3>
+        <div>
+          <h3 className="text-xl font-bold">{project.title}</h3>
+          <p className="font-mono text-xs text-gray-400 mt-1">{project.date}</p>
+        </div>
         <ArrowRight className="h-5 w-5 opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100" />
       </div>
       <p className="mt-2 text-gray-500">{project.description}</p>
@@ -132,40 +173,73 @@ function App() {
           <h1 className="text-5xl font-bold tracking-tight md:text-6xl">
             Hi, I'm{' '}
             <span className="underline decoration-4 underline-offset-8 decoration-black">
-              Hari Haran
+              Hari Haran S
             </span>
           </h1>
-          <p className="mt-6 text-lg text-gray-500 leading-relaxed">
-            CS Engineering (AI/ML) student obsessed with systems, infrastructure, and how power flows in the real world.
+          <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+            <strong>4th-year Computer Science Engineering (AI/ML)</strong> student with strong experience in applied machine learning, backend systems, and full-stack development.
           </p>
-          <p className="mt-4 text-lg text-gray-600 leading-relaxed">
-            I don't just build features — I build <strong>models of reality</strong>: supply chains, risk systems, automation pipelines, and AI tools that sit between software, policy, and physical infrastructure.
+          <p className="mt-4 text-lg text-gray-500 leading-relaxed">
+            I focus on building <strong>scalable, real-world AI systems</strong> and <strong>data-driven products</strong> rather than experimental or toy projects.
           </p>
+          
+          {/* Resume Button */}
+          <a
+            href="https://drive.google.com/file/d/1_MCKgDVHLPs_FwoE09J2n5FRfljqsb1d/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 mt-6 border-4 border-black bg-black text-white px-6 py-3 font-bold shadow-brutal transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm"
+          >
+            <Download className="h-5 w-5" />
+            Download Resume
+          </a>
         </section>
 
-        {/* What I Focus On */}
+        {/* About Section */}
         <section className="mb-20">
           <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-gray-500">
-            What I Focus On
+            About Me
           </h2>
           <div className="border-4 border-black bg-white p-6 shadow-brutal">
-            <div className="grid grid-cols-1 gap-4">
-              <div className="flex items-start gap-3">
-                <Zap className="h-5 w-5 mt-1 flex-shrink-0" />
-                <p className="text-gray-600"><strong>Critical materials & supply-chain risk</strong> — understanding what breaks first when systems fail</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Zap className="h-5 w-5 mt-1 flex-shrink-0" />
-                <p className="text-gray-600"><strong>AI systems that explain, not hallucinate</strong> — useful AI that plugs into real workflows</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Zap className="h-5 w-5 mt-1 flex-shrink-0" />
-                <p className="text-gray-600"><strong>Automation over dashboards</strong> — building things decision-makers actually use</p>
+            <ul className="space-y-3 text-gray-600">
+              <li className="flex items-start gap-2">
+                <span className="font-bold text-black">•</span>
+                AI/ML-focused engineer with hands-on experience in <strong>OCR, NLP, CNNs, semantic search, and algorithmic systems</strong>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="font-bold text-black">•</span>
+                Interested in <strong>production-oriented AI</strong>, automation, and backend-aligned system design
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="font-bold text-black">•</span>
+                Comfortable working across <strong>ML pipelines, APIs, databases, and frontend integration</strong>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="font-bold text-black">•</span>
+                Strong inclination toward <strong>problem-solving, system thinking, and execution</strong>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Experience Section */}
+        <section className="mb-20">
+          <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-gray-500">
+            Experience
+          </h2>
+          <div className="border-4 border-black bg-white p-6 shadow-brutal">
+            <div className="flex items-start gap-3">
+              <Briefcase className="h-6 w-6 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold">Operations Intern</h3>
+                <p className="font-mono text-sm text-gray-500">Airlearn (Unacademy) • Bangalore, India • Aug 2025</p>
+                <ul className="mt-3 space-y-2 text-gray-600">
+                  <li>• Translated <strong>Figma design specifications</strong> into backend-aligned system logic</li>
+                  <li>• Identified repetitive operational workflows and proposed <strong>automation improvements</strong></li>
+                  <li>• Collaborated with cross-functional teams to improve <strong>execution efficiency</strong></li>
+                </ul>
               </div>
             </div>
-            <p className="mt-6 font-mono text-sm text-gray-500 border-t-2 border-black pt-4">
-              I care more about <strong>clarity than hype</strong> and more about <strong>leverage than vanity metrics</strong>.
-            </p>
           </div>
         </section>
 
@@ -184,7 +258,7 @@ function App() {
         {/* Skills Section */}
         <section className="mb-20">
           <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-gray-500">
-            Skills
+            Technical Skills
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {skills.map((skill) => (
@@ -193,74 +267,46 @@ function App() {
           </div>
         </section>
 
-        {/* Interests Section */}
+        {/* Achievements Section */}
         <section className="mb-20">
           <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-gray-500">
-            Interests
+            Achievements
           </h2>
           <div className="border-4 border-black bg-white p-6 shadow-brutal">
-            <div className="flex flex-wrap gap-2">
-              {interests.map((interest) => (
-                <span
-                  key={interest}
-                  className="border-2 border-black bg-gray-100 px-3 py-2 font-mono text-sm"
-                >
-                  {interest}
-                </span>
+            <div className="space-y-4">
+              {achievements.map((achievement, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  <Trophy className="h-5 w-5 mt-1 flex-shrink-0" />
+                  <div>
+                    <span className="font-bold">{achievement.title}</span>
+                    <span className="text-gray-500"> — {achievement.event}</span>
+                    <span className="font-mono text-xs text-gray-400 ml-2">({achievement.year})</span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* How I Think Section */}
+        {/* Education Section */}
         <section className="mb-20">
           <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-gray-500">
-            How I Think
+            Education
           </h2>
           <div className="border-4 border-black bg-white p-6 shadow-brutal">
-            <div className="grid grid-cols-2 gap-4 font-mono text-sm">
-              <div className="border-2 border-black p-3 text-center">
-                <span className="font-bold">Systems</span>
-                <span className="text-gray-400"> &gt; </span>
-                <span className="text-gray-500">Tools</span>
-              </div>
-              <div className="border-2 border-black p-3 text-center">
-                <span className="font-bold">Structure</span>
-                <span className="text-gray-400"> &gt; </span>
-                <span className="text-gray-500">Prediction</span>
-              </div>
-              <div className="border-2 border-black p-3 text-center">
-                <span className="font-bold">Clarity</span>
-                <span className="text-gray-400"> &gt; </span>
-                <span className="text-gray-500">Complexity</span>
-              </div>
-              <div className="border-2 border-black p-3 text-center">
-                <span className="font-bold">Leverage</span>
-                <span className="text-gray-400"> &gt; </span>
-                <span className="text-gray-500">Effort</span>
+            <div className="flex items-start gap-3">
+              <GraduationCap className="h-6 w-6 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold">AMC Engineering College</h3>
+                <p className="font-mono text-sm text-gray-500">Bangalore, India • 2022 – 2026</p>
+                <p className="mt-2 text-gray-600">
+                  <strong>B.E. Computer Science Engineering (AI/ML)</strong>
+                </p>
+                <p className="mt-1 text-gray-600">
+                  CGPA: <strong>8.23</strong>
+                </p>
               </div>
             </div>
-            <p className="mt-4 text-gray-600 text-center">
-              I'm more interested in <strong>why things fail</strong> than why they work.
-            </p>
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section className="mb-20">
-          <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-gray-500">
-            About
-          </h2>
-          <div className="border-4 border-black bg-white p-6 shadow-brutal">
-            <p className="text-gray-600 leading-relaxed mb-4">
-              I'm a Computer Science Engineering student specializing in AI/ML, but my real focus is on systems that matter — infrastructure, energy, supply chains, and the hidden dependencies that make modern technology possible.
-            </p>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              When I'm not coding, you'll find me reading about semiconductors, rare earth minerals, financial market structure, and the psychology of decision-making.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              I'm looking for <strong>research roles</strong>, <strong>infrastructure/climate/policy-adjacent startups</strong>, and environments where people care about second-order effects.
-            </p>
           </div>
         </section>
       </main>
@@ -284,7 +330,7 @@ function App() {
               ))}
             </div>
             <p className="font-mono text-sm text-gray-500">
-              © {new Date().getFullYear()} Hari Haran
+              © {new Date().getFullYear()} Hari Haran S
             </p>
           </div>
         </div>
