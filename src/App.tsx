@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react'
-import { Github, Linkedin, Mail, ArrowRight, Download, Briefcase, GraduationCap, Trophy, Code, Brain, Cloud, Wrench } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { Github, Linkedin, Mail, ArrowRight, Download, Briefcase, GraduationCap, Trophy, Code, Brain, Cloud, Wrench, Phone, PhoneOff, Youtube } from 'lucide-react'
 import './index.css'
 import profileImage from './assets/profile.jpeg'
+
+const VAPI_PUBLIC_KEY = '71df93ef-9aa7-4c1f-85a1-6c9f0acd7e2f'
+const ASSISTANT_ID = 'f47dab8b-e5d7-4bca-a991-57abe4bb8415'
 
 function useTypewriter(text: string, typeSpeed: number = 100, eraseSpeed: number = 50, pauseTime: number = 2000) {
   const [displayText, setDisplayText] = useState('')
@@ -99,28 +102,44 @@ const projects: Project[] = [
     date: 'Oct – Nov 2025',
     isExternal: true,
   },
+  {
+    title: 'Cognitive Offload',
+    description: 'Built a real-time B2B dashboard integrating LLM-based classification to process and organize unstructured workplace data with bi-directional real-time communication using WebSockets.',
+    tags: ['React', 'Node.js', 'SQLite', 'Drizzle ORM', 'Socket.io'],
+    href: 'https://github.com/s-hari-haran/cognitiveoffload',
+    date: 'Jan 2026',
+    isExternal: true,
+  },
+  {
+    title: 'Agentic DevOps System',
+    description: 'Engineered a Proof-of-Concept (PoC) event-driven platform using autonomous AI agents to simulate automated DevOps workflows and error resolution. Integrated Kubernetes monitoring and RabbitMQ.',
+    tags: ['Python', 'Docker', 'Kubernetes', 'RabbitMQ', 'Qdrant'],
+    href: 'https://github.com/s-hari-haran/devopscopilot',
+    date: 'Mar 2025 – Dec 2025',
+    isExternal: true,
+  },
 ]
 
 const skills: Skill[] = [
   {
     icon: Code,
     title: 'Programming',
-    items: ['Python', 'C', 'Java', 'TypeScript'],
+    items: ['Python', 'JavaScript', 'Java', 'C', 'TypeScript'],
   },
   {
     icon: Brain,
-    title: 'AI / ML',
-    items: ['LLMs', 'RAG', 'TensorFlow', 'Scikit-learn', 'NLP', 'CNNs'],
+    title: 'AI & Data',
+    items: ['Prompt Engineering', 'RAG', 'FAISS', 'Qdrant', 'TensorFlow', 'Pandas', 'NLP'],
   },
   {
     icon: Cloud,
-    title: 'Cloud & Databases',
-    items: ['AWS', 'GCP', 'Azure', 'Firebase', 'Firestore'],
+    title: 'Cloud & DevOps',
+    items: ['Docker', 'Kubernetes', 'RabbitMQ', 'GCP', 'Firebase', 'AWS'],
   },
   {
     icon: Wrench,
-    title: 'Frameworks & Tools',
-    items: ['React', 'Flask', 'Node.js', 'Git', 'Docker', 'Postman'],
+    title: 'Backend & Tools',
+    items: ['Node.js', 'Flask', 'React.js', 'Socket.io', 'Drizzle ORM', 'Git', 'Postman'],
   },
 ]
 
@@ -146,6 +165,11 @@ const socialLinks = [
     icon: Mail,
     href: 'mailto:realhariharan@gmail.com',
     label: 'Email',
+  },
+  {
+    icon: Youtube,
+    href: 'https://wa.me/919538133265?text=You%20lost%20a%20subscriber%2C%20tell%20me%20your%20youtube%20channel.',
+    label: 'YouTube',
   },
 ]
 
@@ -203,6 +227,70 @@ function SkillCard({ skill }: { skill: Skill }) {
 
 function App() {
   const { displayText } = useTypewriter('Hari Haran S', 120, 60, 2000)
+  const [isCallActive, setIsCallActive] = useState(false)
+  const [isConnecting, setIsConnecting] = useState(false)
+  const [vapiReady, setVapiReady] = useState(false)
+  const vapiRef = useRef<any>(null)
+
+  useEffect(() => {
+    let mounted = true
+    
+    // Dynamic import to handle CommonJS/ESM interop
+    const initVapi = async () => {
+      try {
+        const vapiModule: any = await import('@vapi-ai/web')
+        // Handle double-wrapped default export from CommonJS module
+        let VapiClass = vapiModule.default
+        if (VapiClass && typeof VapiClass !== 'function' && VapiClass.default) {
+          VapiClass = VapiClass.default
+        }
+        
+        if (!mounted || typeof VapiClass !== 'function') return
+        
+        const vapi = new VapiClass(VAPI_PUBLIC_KEY)
+        vapiRef.current = vapi
+
+        vapi.on('call-start', () => {
+          setIsConnecting(false)
+          setIsCallActive(true)
+        })
+        
+        vapi.on('call-end', () => {
+          setIsCallActive(false)
+          setIsConnecting(false)
+        })
+        
+        setVapiReady(true)
+      } catch (error) {
+        console.error('Failed to initialize Vapi:', error)
+      }
+    }
+    
+    initVapi()
+
+    return () => {
+      mounted = false
+      if (vapiRef.current) {
+        vapiRef.current.stop()
+      }
+    }
+  }, [])
+
+  const toggleCall = async () => {
+    if (!vapiRef.current) return
+    
+    if (isCallActive) {
+      vapiRef.current.stop()
+    } else {
+      setIsConnecting(true)
+      try {
+        await vapiRef.current.start(ASSISTANT_ID)
+      } catch (error) {
+        console.error('Failed to start call:', error)
+        setIsConnecting(false)
+      }
+    }
+  }
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -222,19 +310,42 @@ function App() {
                 <strong>4th-year Computer Science Engineering (AI/ML)</strong> student with strong experience in applied machine learning, backend systems, and full-stack development.
               </p>
               <p className="mt-4 text-lg text-gray-500 leading-relaxed">
-                I focus on building <strong>scalable, real-world AI systems</strong> and <strong>data-driven products</strong> rather than experimental or toy projects.
+                I focus on building <strong>scalable, real-world AI systems</strong> and <strong>data-driven products</strong> that can have impact.
               </p>
               
-              {/* Resume Button */}
-              <a
-                href="https://drive.google.com/file/d/1_MCKgDVHLPs_FwoE09J2n5FRfljqsb1d/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-6 border-4 border-black bg-black text-white px-6 py-3 font-bold shadow-brutal transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm"
-              >
-                <Download className="h-5 w-5" />
-                Download Resume
-              </a>
+              {/* Buttons */}
+              <div className="flex flex-wrap gap-4 mt-6">
+                <a
+                  href="/hari_resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 border-4 border-black bg-black text-white px-6 py-3 font-bold shadow-brutal transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm min-w-[200px]"
+                >
+                  <Download className="h-5 w-5" />
+                  Download Resume
+                </a>
+                <button
+                  onClick={toggleCall}
+                  disabled={isConnecting || !vapiReady}
+                  className={`inline-flex items-center justify-center gap-2 border-4 border-black px-6 py-3 font-bold shadow-brutal transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm min-w-[200px] ${
+                    isCallActive 
+                      ? 'bg-red-500 text-white border-red-500' 
+                      : isConnecting || !vapiReady
+                        ? 'bg-gray-300 text-gray-600 cursor-wait'
+                        : 'bg-white text-black hover:bg-black hover:text-white'
+                  }`}
+                >
+                  {isCallActive ? (
+                    <><PhoneOff className="h-5 w-5" /> End Call</>
+                  ) : isConnecting ? (
+                    <><Phone className="h-5 w-5 animate-pulse" /> Connecting...</>
+                  ) : !vapiReady ? (
+                    <><Phone className="h-5 w-5" /> Loading...</>
+                  ) : (
+                    <><Phone className="h-5 w-5" /> Talk to Hari</>
+                  )}
+                </button>
+              </div>
             </div>
             
             {/* Profile Picture */}
@@ -276,17 +387,32 @@ function App() {
           <h2 className="mb-8 font-mono text-xs uppercase tracking-widest text-gray-500">
             Experience
           </h2>
-          <div className="border-4 border-black bg-white p-6 shadow-brutal">
-            <div className="flex items-start gap-3">
-              <Briefcase className="h-6 w-6 mt-1 flex-shrink-0" />
-              <div>
-                <h3 className="text-xl font-bold">Operations Intern</h3>
-                <p className="font-mono text-sm text-gray-500">Airlearn (Unacademy) • Bangalore, India • Aug 2025</p>
-                <ul className="mt-3 space-y-2 text-gray-600">
-                  <li>• Translated <strong>Figma design specifications</strong> into backend-aligned system logic</li>
-                  <li>• Identified repetitive operational workflows and proposed <strong>automation improvements</strong></li>
-                  <li>• Collaborated with cross-functional teams to improve <strong>execution efficiency</strong></li>
-                </ul>
+          <div className="space-y-6">
+            <div className="border-4 border-black bg-white p-6 shadow-brutal">
+              <div className="flex items-start gap-3">
+                <Briefcase className="h-6 w-6 mt-1 flex-shrink-0" />
+                <div>
+                  <h3 className="text-xl font-bold">Prompt Engineering Intern</h3>
+                  <p className="font-mono text-sm text-gray-500">Samora AI (YC W26) • Remote • Jan 2026 – Present</p>
+                  <ul className="mt-3 experience-list">
+                    <li>Worked on production LLM systems, focusing on <strong>prompt optimization</strong>, edge-case handling, and improving response reliability in AI voice agents</li>
+                    <li>Collaborated with engineering teams to analyze failures, <strong>reduce hallucinations</strong>, and improve consistency in real-world AI applications</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="border-4 border-black bg-white p-6 shadow-brutal">
+              <div className="flex items-start gap-3">
+                <Briefcase className="h-6 w-6 mt-1 flex-shrink-0" />
+                <div>
+                  <h3 className="text-xl font-bold">Operations Intern</h3>
+                  <p className="font-mono text-sm text-gray-500">Airlearn (Unacademy) • Bangalore, India • Aug 2025</p>
+                  <ul className="mt-3 experience-list">
+                    <li>Translated <strong>Figma design specifications</strong> into backend-aligned system logic</li>
+                    <li>Identified repetitive operational workflows and proposed <strong>automation improvements</strong></li>
+                    <li>Collaborated with cross-functional teams to improve <strong>execution efficiency</strong></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
